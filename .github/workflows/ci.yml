@@ -1,0 +1,56 @@
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-15-intel]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Register this checkout as a tap
+        run: brew tap local/pix-ci "$GITHUB_WORKSPACE"
+      - name: Verify explicit version matches both architecture URLs
+        run: |
+          set -euo pipefail
+          v="$(grep -oE 'version "[0-9.]+"' Formula/pix.rb | grep -oE '[0-9.]+')"
+          test "$(grep -c "download/v${v}/pix_${v}_darwin_" Formula/pix.rb)" = 2
+      - name: Audit formula
+        # Homebrew misreads the arm64 suffix as version 64 without the explicit
+        # version, then audits that required version as redundant.
+        run: brew audit --strict --online --except=version local/pix-ci/pix
+      - name: Install from this checkout
+        run: brew install --formula local/pix-ci/pix
+      - name: Smoke both stamped binaries
+        run: |
+          set -euo pipefail
+          v="$(brew info --json=v2 --formula pix | jq -r '.formulae[0].versions.stable')"
+          test "$(pix version)" = "$v"
+          test "$(pix-host version)" = "$v"
+      - name: Test formula
+        run: brew test pix
+
+  anti-drift:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - name: Formula version matches the latest pix release
+        run: |
+          set -euo pipefail
+          formula_v="$(grep -oE 'version "[0-9.]+"' Formula/pix.rb | grep -oE '[0-9.]+')"
+          latest_tag="$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/mcavage/pix/releases/latest)"
+          latest_v="${latest_tag##*/tag/v}"
+          if [ "$formula_v" != "$latest_v" ]; then
+            echo "::error::formula pins $formula_v, mcavage/pix latest release is $latest_v"
+            exit 1
+          fi

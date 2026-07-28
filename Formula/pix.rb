@@ -1,23 +1,40 @@
 class Pix < Formula
   desc "Multi-model coding agent harness for Docker Sandboxes"
   homepage "https://github.com/mcavage/pix"
-  version "0.1.8"
+  # Required because Homebrew otherwise parses the archive suffix "arm64" as
+  # version "64" and installs into Cellar/pix/64.
+  version "0.1.10"
   license "MIT"
+
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
 
   on_macos do
     on_arm do
-      url "https://github.com/mcavage/pix/releases/download/v0.1.8/pix_0.1.8_darwin_arm64.tar.gz"
-      sha256 "2f03a904ea396a8f8542fcbc8c3ba900a85df5e5b5a2d89aa2fa5a846da00289"
+      url "https://github.com/mcavage/pix/releases/download/v0.1.10/pix_0.1.10_darwin_arm64.tar.gz"
+      sha256 "bcc8a5de40ea4171b3a0a19a59210dcbd1b74b26be39bc55cb17ac5e4b435d20"
     end
     on_intel do
-      url "https://github.com/mcavage/pix/releases/download/v0.1.8/pix_0.1.8_darwin_amd64.tar.gz"
-      sha256 "51683f12f3e6d9132f6235e8521463ed2622fd02ff4cd5ac8a92c2a29d583e20"
+      url "https://github.com/mcavage/pix/releases/download/v0.1.10/pix_0.1.10_darwin_amd64.tar.gz"
+      sha256 "560a818b5acd7a3d128ab041dcec607bf060824ef16da851213070b54db4098b"
     end
   end
 
   def install
     bin.install "pix", "pix-host"
     man1.install "pix.1"
+  end
+
+  def caveats
+    <<~EOS
+      Run `pix setup` to install prerequisites and finish onboarding.
+
+      Before uninstalling this formula, run `pix state uninstall` FIRST.
+      Then run `brew uninstall mcavage/tap/pix`. Reversing that order leaves
+      launchd configured with a Cellar path that fails on its next launch.
+    EOS
   end
 
   test do
