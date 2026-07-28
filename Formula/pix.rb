@@ -3,6 +3,11 @@ class Pix < Formula
   homepage "https://github.com/mcavage/pix"
   license "MIT"
 
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
   on_macos do
     on_arm do
       url "https://github.com/mcavage/pix/releases/download/v0.1.10/pix_0.1.10_darwin_arm64.tar.gz"
@@ -17,11 +22,6 @@ class Pix < Formula
   def install
     bin.install "pix", "pix-host"
     man1.install "pix.1"
-  end
-
-  livecheck do
-    url :stable
-    strategy :github_latest
   end
 
   def caveats
