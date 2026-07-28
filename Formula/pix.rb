@@ -1,6 +1,9 @@
 class Pix < Formula
   desc "Multi-model coding agent harness for Docker Sandboxes"
   homepage "https://github.com/mcavage/pix"
+  # Required because Homebrew otherwise parses the archive suffix "arm64" as
+  # version "64" and installs into Cellar/pix/64.
+  version "0.1.10"
   license "MIT"
 
   livecheck do

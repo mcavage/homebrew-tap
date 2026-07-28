@@ -40,7 +40,7 @@ jobs:
       - name: Formula version matches the latest pix release
         run: |
           set -euo pipefail
-          formula_v="$(grep -m1 -oE 'download/v[0-9.]+' Formula/pix.rb | cut -d v -f2)"
+          formula_v="$(grep -oE 'version "[0-9.]+"' Formula/pix.rb | grep -oE '[0-9.]+')"
           latest_tag="$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/mcavage/pix/releases/latest)"
           latest_v="${latest_tag##*/tag/v}"
           if [ "$formula_v" != "$latest_v" ]; then
