@@ -21,7 +21,7 @@ class Dk < Formula
   homepage "https://github.com/mcavage/dk-cli"
   # Required: Homebrew otherwise parses the archive suffix "arm64" as version
   # "64" and installs into Cellar/dk/64.
-  version "0.1.0"
+  version "0.1.1"
   license "MIT"
 
   livecheck do
@@ -31,23 +31,23 @@ class Dk < Formula
 
   on_macos do
     on_arm do
-      url "https://github.com/mcavage/dk-cli/releases/download/v0.1.0/dk_0.1.0_darwin_arm64.tar.gz"
-      sha256 "52e2e07d37fc27082ebeee716e417810a43818b7750ac24e08f0338ff5b5d16c"
+      url "https://github.com/mcavage/dk-cli/releases/download/v0.1.1/dk_0.1.1_darwin_arm64.tar.gz"
+      sha256 "d99c30654343b1f9c1152989d1ca23c1856508de3906ccb6eabde412795dc3b2"
     end
     on_intel do
-      url "https://github.com/mcavage/dk-cli/releases/download/v0.1.0/dk_0.1.0_darwin_amd64.tar.gz"
-      sha256 "2086dfaf2d12b195d011a0ff54efd73391b1a25e3b391ec4339f1e786f691edd"
+      url "https://github.com/mcavage/dk-cli/releases/download/v0.1.1/dk_0.1.1_darwin_amd64.tar.gz"
+      sha256 "bb57010d39c4bab7110e3c1e07a2ae45fe445389b4c6a49d830ef7d07cbc5db4"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/mcavage/dk-cli/releases/download/v0.1.0/dk_0.1.0_linux_arm64.tar.gz"
-      sha256 "d3ba2d13a5800ad9d79192ccbc29192187dc2d7c078e9f6d1fbd80ba93cf362e"
+      url "https://github.com/mcavage/dk-cli/releases/download/v0.1.1/dk_0.1.1_linux_arm64.tar.gz"
+      sha256 "ff15d72c2a77376fdb353894a79b1809a259917f5afb15029b947454518c27f4"
     end
     on_intel do
-      url "https://github.com/mcavage/dk-cli/releases/download/v0.1.0/dk_0.1.0_linux_amd64.tar.gz"
-      sha256 "3243ba2b73863c268b65ac680cd47a865cad74da0785a07beb6b2fdc951efc7a"
+      url "https://github.com/mcavage/dk-cli/releases/download/v0.1.1/dk_0.1.1_linux_amd64.tar.gz"
+      sha256 "0303b8c5852c107ef4b98cd9d16499300ea3ceb47b9dc9aaf7713698274d56ff"
     end
   end
 
