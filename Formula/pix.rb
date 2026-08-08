@@ -24,7 +24,13 @@ class Pix < Formula
 
   def install
     bin.install "pix", "pix-host"
-    man1.install "pix.1"
+    # The tarball carries the notices that legally have to travel with these
+    # binaries: LICENSE for pix's own MIT s2, and NOTICE.md /
+    # THIRD_PARTY_NOTICES.md / licenses/MPL-2.0.txt for the MPL-2.0
+    # go-plugin/yamux code linked into pix-host (MPL-2.0 s3.1). install.sh
+    # places the same four next to the binaries it installs; Homebrew must
+    # not be the one channel that drops them.
+    doc.install "LICENSE", "NOTICE.md", "THIRD_PARTY_NOTICES.md", "licenses"
   end
 
   def caveats
