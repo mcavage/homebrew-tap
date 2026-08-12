@@ -22,7 +22,7 @@ class Pix < Formula
   homepage "https://github.com/mcavage/pix"
   # Required because Homebrew otherwise parses the archive suffix "arm64" as
   # version "64" and installs into Cellar/pix/64.
-  version "0.1.45"
+  version "0.1.46"
   license "MIT"
 
   livecheck do
@@ -30,14 +30,20 @@ class Pix < Formula
     strategy :github_latest
   end
 
+  # NO `depends_on` for sbx, deliberately. sbx ships as a CASK
+  # (docker/homebrew-tap Casks/sbx.rb), and a Homebrew formula cannot depend on a
+  # cask: the name would be resolved as a formula, not found, and every
+  # `brew install mcavage/tap/pix` would fail. The caveats name the install
+  # command instead, and `pix doctor` reports a missing sbx as a required gap
+  # with the same command.
   on_macos do
     on_arm do
-      url "https://github.com/mcavage/pix/releases/download/v0.1.45/pix_0.1.45_darwin_arm64.tar.gz"
-      sha256 "9c1da8529f893824ef2f69b4789c5458535697b98045d0d01bc95d52116f3fff"
+      url "https://github.com/mcavage/pix/releases/download/v0.1.46/pix_0.1.46_darwin_arm64.tar.gz"
+      sha256 "2959fe2f38ada30ecdd9ecfe19cdee34aeabbc16416ce8986aeefca91b71a557"
     end
     on_intel do
-      url "https://github.com/mcavage/pix/releases/download/v0.1.45/pix_0.1.45_darwin_amd64.tar.gz"
-      sha256 "e485de34d02ba4fed4d14515c47038f1155a9eb0114449ca357b9d13da98ced4"
+      url "https://github.com/mcavage/pix/releases/download/v0.1.46/pix_0.1.46_darwin_amd64.tar.gz"
+      sha256 "f8c54a709ac2dad0f5e6b8feaba7d34fd15ff478a8170d9d37f822ae3a724f23"
     end
   end
 
@@ -54,7 +60,15 @@ class Pix < Formula
 
   def caveats
     <<~EOS
-      Run `pix setup` to install prerequisites and finish onboarding.
+      Pix needs Docker Sandboxes, which is a cask and so is not installed
+      automatically:
+
+        brew install docker/tap/sbx
+
+      Use that mainline cask, not docker/tap/sbx@nightly. The two conflict, so
+      having one means uninstalling it before the other will install.
+
+      Then run `pix setup` to finish onboarding.
 
       Before uninstalling this formula, run `pix state uninstall` FIRST.
       Then run `brew uninstall mcavage/tap/pix`. Reversing that order leaves
