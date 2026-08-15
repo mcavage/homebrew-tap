@@ -22,7 +22,7 @@ class Pix < Formula
   homepage "https://github.com/mcavage/pix"
   # Required because Homebrew otherwise parses the archive suffix "arm64" as
   # version "64" and installs into Cellar/pix/64.
-  version "0.1.68"
+  version "0.1.69"
   license "MIT"
 
   livecheck do
@@ -38,12 +38,12 @@ class Pix < Formula
   # with the same command.
   on_macos do
     on_arm do
-      url "https://github.com/mcavage/pix/releases/download/v0.1.68/pix_0.1.68_darwin_arm64.tar.gz"
-      sha256 "370b0a37e397bba899ed6f0cfc9c5cbc06ded8a221c2924b2de538c8e9584b55"
+      url "https://github.com/mcavage/pix/releases/download/v0.1.69/pix_0.1.69_darwin_arm64.tar.gz"
+      sha256 "97c81818bd0876d73cda7284e2863686c4eab760570f9043fb79ee8354be812f"
     end
     on_intel do
-      url "https://github.com/mcavage/pix/releases/download/v0.1.68/pix_0.1.68_darwin_amd64.tar.gz"
-      sha256 "a0578799f2c37e222dd1baf0dff6e981859dcceaaa6260b7e0ea65ea0313f297"
+      url "https://github.com/mcavage/pix/releases/download/v0.1.69/pix_0.1.69_darwin_amd64.tar.gz"
+      sha256 "79a76e0810452402982a15839dbd9d85ccd8030a6592a18be09e168ab520313f"
     end
   end
 
