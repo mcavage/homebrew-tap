@@ -22,7 +22,7 @@ class Pix < Formula
   homepage "https://github.com/mcavage/pix"
   # Required because Homebrew otherwise parses the archive suffix "arm64" as
   # version "64" and installs into Cellar/pix/64.
-  version "0.1.73"
+  version "0.1.75"
   license "MIT"
 
   livecheck do
@@ -38,23 +38,18 @@ class Pix < Formula
   # with the same command.
   on_macos do
     on_arm do
-      url "https://github.com/mcavage/pix/releases/download/v0.1.73/pix_0.1.73_darwin_arm64.tar.gz"
-      sha256 "17dd38e2778fad276e989acbd1f82f88901ce63db6e681d819a0bbce693a089c"
+      url "https://github.com/mcavage/pix/releases/download/v0.1.75/pix_0.1.75_darwin_arm64.tar.gz"
+      sha256 "f9ad8c71441d0ba1c6ff4568f2798fbe7346ea3aaf3e257b5e89b89f05d09368"
     end
     on_intel do
-      url "https://github.com/mcavage/pix/releases/download/v0.1.73/pix_0.1.73_darwin_amd64.tar.gz"
-      sha256 "6cd0ab70b14f3e29c4d7824855276b9e6f05bc87219859afeb478a8318994a11"
+      url "https://github.com/mcavage/pix/releases/download/v0.1.75/pix_0.1.75_darwin_amd64.tar.gz"
+      sha256 "0614bf654746f3aa976fea0d7d8be9a70253fa5a7a5f6a6621fe0b9b5957eb43"
     end
   end
 
   def install
-    bin.install "pix", "pix-host"
-    # The tarball carries the notices that legally have to travel with these
-    # binaries: LICENSE for pix's own MIT s2, and NOTICE.md /
-    # THIRD_PARTY_NOTICES.md / licenses/MPL-2.0.txt for the MPL-2.0
-    # go-plugin/yamux code linked into pix-host (MPL-2.0 s3.1). install.sh
-    # places the same four next to the binaries it installs; Homebrew must
-    # not be the one channel that drops them.
+    libexec.install "pix", "release-manifest.json", "pix-runtime-#{version}.tar.gz"
+    bin.install_symlink libexec/"pix"
     doc.install "LICENSE", "NOTICE.md", "THIRD_PARTY_NOTICES.md", "licenses"
   end
 
@@ -70,14 +65,11 @@ class Pix < Formula
 
       Then run `pix setup` to finish onboarding.
 
-      Before uninstalling this formula, run `pix state uninstall` FIRST.
-      Then run `brew uninstall mcavage/tap/pix`. Reversing that order leaves
-      launchd configured with a Cellar path that fails on its next launch.
+      Uninstalling Pix preserves your environments, credentials and memory.
     EOS
   end
 
   test do
     assert_equal version.to_s, shell_output("#{bin}/pix version").strip
-    assert_equal version.to_s, shell_output("#{bin}/pix-host version").strip
   end
 end
