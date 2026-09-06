@@ -30,12 +30,17 @@ jobs:
         run: brew audit --strict --online --except=version local/pix-ci/pix
       - name: Install from this checkout
         run: brew install --formula local/pix-ci/pix
-      - name: Smoke both stamped binaries
+      - name: Verify installed launcher and release bundle
         run: |
           set -euo pipefail
           v="$(brew info --json=v2 --formula pix | jq -r '.formulae[0].versions.stable')"
           test "$(pix version)" = "$v"
-          test "$(pix-host version)" = "$v"
+          libexec="$(brew --prefix pix)/libexec"
+          test "$(jq -r '.version' "$libexec/release-manifest.json")" = "$v"
+          expected="$(jq -r '.runtime_digest' "$libexec/release-manifest.json")"
+          actual="sha256:$(shasum -a 256 "$libexec/pix-runtime-${v}.tar.gz" | awk '{print $1}')"
+          test "$actual" = "$expected"
+          pix help --all
       - name: Test formula
         run: brew test pix
 
