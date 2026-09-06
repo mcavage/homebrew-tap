@@ -37,7 +37,7 @@ jobs:
           test "$(pix version)" = "$v"
           libexec="$(brew --prefix pix)/libexec"
           test "$(jq -r '.version' "$libexec/release-manifest.json")" = "$v"
-          expected="$(jq -r '.runtime_digest' "$libexec/release-manifest.json")"
+          expected="$(jq -r '.artifacts.runtime.digest' "$libexec/release-manifest.json")"
           actual="sha256:$(shasum -a 256 "$libexec/pix-runtime-${v}.tar.gz" | awk '{print $1}')"
           test "$actual" = "$expected"
           pix help --all
