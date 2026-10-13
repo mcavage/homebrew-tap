@@ -5,9 +5,9 @@
 class MarshNightly < Formula
   desc "Bash-compatible shell whose agents and tools run in sandboxed containers (nightly build)"
   homepage "https://runmar.sh"
-  url "https://github.com/mcavage/marsh/releases/download/v0.1.3-nightly.20261013033129.g9e3f081/marsh-0.1.3-nightly.20261013033129.g9e3f081-darwin-arm64.tar.gz"
-  version "0.1.3-nightly.20261013033129.g9e3f081"
-  sha256 "60bf9d59112b6541455cd6b32b5f7b89c41def99cd85d62d31b79ca783ea86ac"
+  url "https://github.com/mcavage/marsh/releases/download/v0.1.3-nightly.20261013034715.g9857b5c/marsh-0.1.3-nightly.20261013034715.g9857b5c-darwin-arm64.tar.gz"
+  version "0.1.3-nightly.20261013034715.g9857b5c"
+  sha256 "188897a38f63d82436841efcd9f3c16031705c27b930675619db2329c401c639"
   license "Apache-2.0"
 
   conflicts_with "marsh", because: "both install marsh, msh, marshd and marsh-mcp"
