@@ -1,12 +1,15 @@
-# Homebrew formula for marsh. Rendered by scripts/render-formula.py at release
-# time and pushed to the tap (github.com/mcavage/homebrew-tap, Formula/marsh.rb).
+# Homebrew formula for marsh and marsh-nightly. Rendered by
+# scripts/render-formula.py by release CI and pushed to the tap
+# (github.com/mcavage/homebrew-tap, Formula/marsh.rb).
 # Do not edit the rendered copy; edit this template.
 class Marsh < Formula
   desc "Bash-compatible shell whose agents and tools run in sandboxed containers"
   homepage "https://runmar.sh"
-  url "https://github.com/mcavage/marsh/releases/download/v0.1.2/marsh-0.1.2-darwin-arm64.tar.gz"
-  sha256 "69213fdbe6a5a29840e4463598a152c03171a015157a289fde9bb93a37bd944d"
+  url "https://github.com/mcavage/marsh/releases/download/v0.1.3/marsh-0.1.3-darwin-arm64.tar.gz"
+  sha256 "71361801d0fbab9bfcb09971d08972b127e7120b94b21548dd72c7fd58626286"
   license "Apache-2.0"
+
+  conflicts_with "marsh-nightly", because: "both install marsh, msh, marshd and marsh-mcp"
 
   depends_on arch: :arm64
   depends_on :macos
