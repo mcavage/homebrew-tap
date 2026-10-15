@@ -5,9 +5,9 @@
 class MarshNightly < Formula
   desc "Bash-compatible shell whose agents and tools run in sandboxed containers (nightly build)"
   homepage "https://runmar.sh"
-  url "https://github.com/mcavage/marsh/releases/download/v0.1.5-nightly.20261014220825.ged798cf/marsh-0.1.5-nightly.20261014220825.ged798cf-darwin-arm64.tar.gz"
-  version "0.1.5-nightly.20261014220825.ged798cf"
-  sha256 "c2e6c3d06ccd3df5d436cfe12a2819a61bc4456bba1cf87f4ea3c8895aa8ad21"
+  url "https://github.com/mcavage/marsh/releases/download/v0.1.6-nightly.20261015004947.g523a9d5/marsh-0.1.6-nightly.20261015004947.g523a9d5-darwin-arm64.tar.gz"
+  version "0.1.6-nightly.20261015004947.g523a9d5"
+  sha256 "5b44b49ac90aac0553098cc7e9f567d5c1bb7efefb4a3a79981b45b8f37ad838"
   license "Apache-2.0"
 
   conflicts_with "marsh", because: "both install marsh, msh, marshd and marsh-mcp"
@@ -33,7 +33,7 @@ class MarshNightly < Formula
   def caveats
     <<~EOS
       marsh needs Docker Sandboxes: brew install docker/tap/sbx; then `sbx login`
-      (sbx 0.45.0 or newer). Then open a shell in a project:
+      (sbx 0.47.0 or newer). Then open a shell in a project:
         cd ~/your/project && marsh
       This is the nightly channel: every green commit on main, no stability promise.
       It shares ~/.marsh with a stable install. Stable: brew install mcavage/tap/marsh
