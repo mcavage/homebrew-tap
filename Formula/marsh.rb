@@ -5,8 +5,8 @@
 class Marsh < Formula
   desc "Bash-compatible shell whose agents and tools run in sandboxed containers"
   homepage "https://runmar.sh"
-  url "https://github.com/mcavage/marsh/releases/download/v0.1.4/marsh-0.1.4-darwin-arm64.tar.gz"
-  sha256 "2e48292baab8554a4066c5312ef999d42ca240af2cde7d1dd20212179c04921b"
+  url "https://github.com/mcavage/marsh/releases/download/v0.1.5/marsh-0.1.5-darwin-arm64.tar.gz"
+  sha256 "10e44757d95b94c059ea69fb6156edfef567d18f38d4ad56e9f27bf89f83bfe4"
   license "Apache-2.0"
 
   conflicts_with "marsh-nightly", because: "both install marsh, msh, marshd and marsh-mcp"
@@ -32,7 +32,7 @@ class Marsh < Formula
   def caveats
     <<~EOS
       marsh needs Docker Sandboxes: brew install docker/tap/sbx; then `sbx login`
-      (sbx 0.45.0 or newer). Then open a shell in a project:
+      (sbx 0.47.0 or newer). Then open a shell in a project:
         cd ~/your/project && marsh
     EOS
   end
