@@ -1,9 +1,11 @@
 name: ci
 
+# Legacy Pix is retired here (it moved into marsh), so this only re-tests its
+# frozen formula when someone changes it. marsh's formulas are tested by
+# marsh's own release pipeline.
 on:
   pull_request:
-  push:
-    branches: [main]
+    paths: [Formula/pix.rb, .github/workflows/ci.yml]
 
 permissions:
   contents: read
@@ -44,18 +46,3 @@ jobs:
       - name: Test formula
         run: brew test pix
 
-  anti-drift:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-      - name: Formula version matches the latest pix release
-        run: |
-          set -euo pipefail
-          formula_v="$(grep -E '^  version "[0-9.]+"$' Formula/pix.rb | grep -oE '[0-9.]+')"
-          latest_tag="$(curl -fsSLI -o /dev/null -w '%{url_effective}' https://github.com/mcavage/pix/releases/latest)"
-          latest_v="${latest_tag##*/tag/v}"
-          if [ "$formula_v" != "$latest_v" ]; then
-            echo "::error::formula pins $formula_v, mcavage/pix latest release is $latest_v"
-            exit 1
-          fi
