@@ -1,22 +1,7 @@
-# THIS FILE IS THE SOURCE OF TRUTH for mcavage/homebrew-tap's Formula/pix.rb.
-#
-# The `bump-tap` job in .github/workflows/publish.yml copies this file over the
-# tap's copy on every release and then rewrites exactly three things: `version`,
-# both `url`s, and both `sha256`s. Everything else -- notably `def install` --
-# ships to users verbatim from here. Editing the tap directly will be silently
-# overwritten by the next release; edit this file instead.
-#
-# WHY IT LIVES HERE. The tarball's contents and the formula's `install` block
-# have to agree, and they used to live in two different repos with nothing
-# comparing them. When `pix.1` was retired the tarball stopped shipping it, the
-# formula kept running `man1.install "pix.1"`, and `brew install` died with
-# ENOENT on the released v0.1.27 -- a break no test in either repo could see.
-# tests/homebrew-formula.test.mjs now asserts this file only installs paths the
-# publish workflow actually stages into the tarball, so that class of drift
-# fails at review time instead of at a user's terminal.
-#
-# The version/url/sha256 values below are LAST RELEASE'S. They are placeholders
-# that the bump job rewrites; do not hand-maintain them.
+# Legacy Pix, retired from Homebrew on 2026-10-24: Pix moved into marsh
+# (brew install mcavage/tap/marsh, then run `pix` in a marsh shell). This
+# formula is frozen at the last legacy release and no longer updated by
+# mcavage/pix's release pipeline; edit it here only to change the notice.
 class Pix < Formula
   desc "Multi-model coding agent harness for Docker Sandboxes"
   homepage "https://github.com/mcavage/pix"
@@ -24,11 +9,13 @@ class Pix < Formula
   # version "64" and installs into Cellar/pix/64.
   version "0.1.107"
   license "MIT"
-
   livecheck do
     url :stable
     strategy :github_latest
   end
+
+  deprecate! date:    "2026-10-24",
+             because: "has moved into marsh: brew install mcavage/tap/marsh, then run pix in a marsh shell"
 
   # NO `depends_on` for sbx, deliberately. sbx ships as a CASK
   # (docker/homebrew-tap Casks/sbx.rb), and a Homebrew formula cannot depend on a
