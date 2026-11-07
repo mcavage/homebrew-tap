@@ -5,9 +5,9 @@
 class MarshNightly < Formula
   desc "Bash-compatible shell whose agents and tools run in sandboxed containers (nightly build)"
   homepage "https://runmar.sh"
-  url "https://github.com/mcavage/marsh/releases/download/v0.3.11-nightly.20261106095221.g89bed6b/marsh-0.3.11-nightly.20261106095221.g89bed6b-darwin-arm64.tar.gz"
-  version "0.3.11-nightly.20261106095221.g89bed6b"
-  sha256 "9552ea7ba9669648cc3d335a54d1b0c4d06cbf4476bc2e9b80291a64793de8da"
+  url "https://github.com/mcavage/marsh/releases/download/v0.3.14-nightly.20261107003221.g178a461/marsh-0.3.14-nightly.20261107003221.g178a461-darwin-arm64.tar.gz"
+  version "0.3.14-nightly.20261107003221.g178a461"
+  sha256 "7fe90df9323d292532b5b425918d8e9a5e6909eff69f5ac4da7a988123d97e83"
   license "Apache-2.0"
 
   conflicts_with "marsh", because: "both install marsh, msh, marshd and marsh-mcp"
@@ -37,6 +37,8 @@ class MarshNightly < Formula
         cd ~/your/project && marsh
       This is the nightly channel: every green commit on main, no stability promise.
       It shares ~/.marsh with a stable install. Stable: brew install mcavage/tap/marsh
+      After an upgrade, a running marsh daemon switches to the new version by
+      itself once no job or marsh shell is running; nothing needs stopping.
     EOS
   end
 
