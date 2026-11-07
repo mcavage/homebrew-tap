@@ -5,8 +5,8 @@
 class Marsh < Formula
   desc "Bash-compatible shell whose agents and tools run in sandboxed containers"
   homepage "https://runmar.sh"
-  url "https://github.com/mcavage/marsh/releases/download/v0.3.12/marsh-0.3.12-darwin-arm64.tar.gz"
-  sha256 "2a1c334aadd7ad716692725812fe06da2340c5dcbde0c2fd6165c00a5dee87ba"
+  url "https://github.com/mcavage/marsh/releases/download/v0.3.13/marsh-0.3.13-darwin-arm64.tar.gz"
+  sha256 "9299ef5731d408644edb0abfa1e54bd0f2fb37d4e338fe92df7220258bbe2326"
   license "Apache-2.0"
 
   conflicts_with "marsh-nightly", because: "both install marsh, msh, marshd and marsh-mcp"
@@ -34,6 +34,8 @@ class Marsh < Formula
       marsh needs Docker Sandboxes: brew install docker/tap/sbx; then `sbx login`
       (sbx 0.47.0 or newer). Then open a shell in a project:
         cd ~/your/project && marsh
+      After an upgrade, a running marsh daemon switches to the new version by
+      itself once no job or marsh shell is running; nothing needs stopping.
     EOS
   end
 
